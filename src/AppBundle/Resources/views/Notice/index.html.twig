@@ -1,0 +1,111 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+
+    <nav class='navbar navbar-default' xmlns="http://www.w3.org/1999/html">
+        <div class="center-block">
+
+            <h1 class='page-header text-center'>Announcements</h1>
+
+        </div>
+    </nav>
+    <div class="container">
+        <div class="col-md-12 text-center">
+            <strong>
+                Select category:
+            </strong>
+
+            {% for category in categories %}
+                <a href="?category={{ category.name }}">{{ category.name }}</a> |
+            {% endfor %}
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
+                <a href="{{ path('category_new')}}">Add new category</a>
+            {% endif %}
+
+        </div>
+        <div>
+            <br>
+            <hr>
+        </div>
+        <div class="row">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th class="col-md-2">Title</th>
+                    <th class="col-md-6">Description</th>
+                    <th class="col-md-2">Photo</th>
+                    <th class="col-md-2">Expire</th>
+                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
+                        <th class="col-md-2">Action</th>
+                    {% endif %}
+
+                </tr>
+                </thead>
+                <tbody>
+                {% if app.request.query.get("page") != null %}
+                    i huj
+                {% else %}
+
+                    {% for entity in entities %}
+
+                        <tr>
+                            <td>
+                                <a href="{{ path('_show', { 'id': entity.id }) }}"> {{ entity.title }}
+                                </a>
+                            </td>
+                            <td style="word-break:break-all;">
+                                {{ entity.description[:120] ~ " ..." }}
+                                <a href="{{ path('_show', { 'id': entity.id }) }}">more</a>
+                            </td>
+                            <td><img src="{{ asset('uploads/photos/' ~ entity.photo) }}"></td>
+                            <td>
+                                {% if entity.end %}
+                                    {{ entity.end|date('Y-m-d') }}
+                                    <br>{{ entity.end|date('H:i:s') }}
+                                {% endif %}
+                            </td>
+                            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
+                                <th class="col-md-2">
+                                    <form action="{{ path('_edit', { 'id': entity.id }) }}">
+                                        <input type="submit" class="btn btn-primary" value="Edit">
+                                    </form>
+                                </th>
+                            {% endif %}
+
+
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+    <div class="container">
+        <div class="row text-center">
+
+            <div class="col-md-12">
+
+                <a href="{{ path('_new') }}">
+                    <button class='btn btn-primary'>Add New Notice</button>
+                </a>
+            </div>
+        </div>
+
+        <div>
+            <br>
+        </div>
+        {% if app.user %}
+            <div class="row text-center">
+                <div class="col-md-12">
+                    <a href="{{ path('_archive') }}">
+                        <button class='btn btn-primary'>Show Archive</button>
+                    </a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

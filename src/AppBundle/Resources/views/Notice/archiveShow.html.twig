@@ -1,0 +1,90 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+    <nav class='navbar navbar-default'>
+        <div class="center-block">
+
+            <h1 class='page-header text-center'>Archive Announcements</h1>
+
+        </div>
+    </nav>
+
+
+    <div class="container">
+        <div class="col-md-12 text-center">
+            <strong>
+                Select category:
+            </strong>
+
+            {% for category in categories %}
+                <a href="?category={{ category.name }}">{{ category.name }}</a> |
+            {% endfor %}
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
+                <a href="{{ path('category_new') }}">Add new category</a>
+            {% endif %}
+
+        </div>
+        <div>
+            <br>
+            <hr>
+        </div>
+        <div class="row">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th class="col-md-2">Title</th>
+                    <th class="col-md-6">Description</th>
+                    <th class="col-md-2">Photo</th>
+                    <th class="col-md-2">Expire</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for entity in entities %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('_show', { 'id': entity.id }) }}"> {{ entity.title }}
+                            </a>
+                        </td>
+                        <td style="word-break:break-all;">
+                            {{ entity.description[:120] ~ " ..." }}
+                            <a href="{{ path('_show', { 'id': entity.id }) }}">more</a>
+                        </td>
+                        <td><img src="{{ asset('uploads/photos/' ~ entity.photo) }}"></td>
+                        <td>
+                            {% if entity.end %}
+                                {{ entity.end|date('Y-m-d H:i:s') }}
+                            {% endif %}
+
+                        </td>
+
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-12">
+                <form action="{{ path('_new') }}">
+                    <input class='btn btn-primary' type="submit" value="Add New">
+                </form>
+            </div>
+        </div>
+
+        <div>
+            <br>
+        </div>
+        <div class="row text-center">
+            <div class="col-md-12">
+                <form action="{{ path('') }}">
+                    <input class='btn btn-primary' type="submit" value="Back to list">
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock body %}

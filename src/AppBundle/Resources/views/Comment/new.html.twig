@@ -1,0 +1,18 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Comment creation</h1>
+    <strong>Comment:</strong>
+    {{ form_start(form) }}
+    {{ form_widget(form.text) }}
+    {{ form_widget(form.submit) }}
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+
+    <li>
+        <a href="{{ path('comment') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+{% endblock %}

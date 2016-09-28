@@ -1,0 +1,12 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block fos_user_head %}
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+    <link href="{{ asset ('css/signin.css') }}" rel="stylesheet"/>
+
+{% endblock fos_user_head %}
+{% block fos_user_content %}
+    {% include "FOSUserBundle:Registration:register_content.html.twig" %}
+{% endblock fos_user_content %}

@@ -1,0 +1,68 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <div class="container">
+
+
+        <div class="row">
+            <div class="col-md-3">
+            </div>
+
+            <div class="col-md-6">
+                <div class='page-header'>
+                    <h3 class='text-center'>New notice:</h3>
+                </div>
+
+                <div class='panel-body'>
+                    <div class='panel'>
+                        {{ form_start(form) }}
+                        {{ form_label(form.title) }}
+                        {{ form_widget(form.title) }}
+                        {{ form_errors(form.title) }}
+                        <br>
+                        {{ form_label(form.description) }}
+                        {{ form_widget(form.description) }}
+                        {{ form_errors(form.description) }}
+                        <br>
+                        {{ form_label(form.photo) }}
+                        {{ form_widget(form.photo) }}
+                        {{ form_errors(form.photo) }}
+
+                        {{ form_label(form.status) }}
+                        {{ form_widget(form.status) }}
+                        {{ form_errors(form.status) }}
+
+                        <strong>How long is active:</strong>
+                        {{ form_widget(form.end) }}
+
+                        {{ form_label(form.categories) }}
+                        {{ form_widget(form.categories) }}
+
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')  %}
+                            <a href="{{ path('category_new') }}">Add new Category</a>
+
+                            <div class="text-center">
+                                {{ form_widget(form.submit) }}
+
+                            </div>
+                        {% endif %}
+
+                        {{ form_end(form) }}
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="container text-center">
+        <form action="{{ path('') }}">
+            <input class='btn btn-primary' type="submit" value="<-Back to list">
+        </form>
+    </div>
+
+
+{% endblock %}

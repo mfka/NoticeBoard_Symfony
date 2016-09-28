@@ -1,0 +1,120 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <nav class='navbar navbar-default'>
+        <div class="center-block">
+
+            <h1 class='page-header text-center'>Details</h1>
+
+        </div>
+    </nav>
+
+
+    <div class="container">
+
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            {% if (entity.user.id == app.user.id) or (is_granted('ROLE_ADMIN')) %}
+                <div class="row">
+                    <div class="col-md-3 col-md-offset-1">
+                        <form action="{{ path('_edit', { 'id': entity.id }) }}">
+                            <input type="submit" class="btn btn-primary" value="Edit">
+                        </form>
+                    </div>
+                    <div class="col-md-3 col-md-offset-1">
+                        <br>
+                    </div>
+                    <div class="col-md-3 col-md-offset-1">{{ form(delete_form) }}</div>
+                </div>
+            {% endif %}
+        {% endif %}
+
+        <div class="row">
+            <table class="table">
+                <tr>
+                    <th class="col-md-3">Title</th>
+                    <th class="col-md-3">Status</th>
+                    <th class="col-md-3">Started:</th>
+                    <th class="col-md-3">Finish:</th>
+                </tr>
+                <tr>
+                    <td>{{ entity.title }}</td>
+                    <td>{{ entity.status }}</td>
+                    <td>
+                        {% if entity.start %}
+                            {{ entity.start|date('Y-m-d H:i:s') }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if entity.end %}
+                            {{ entity.end|date('Y-m-d H:i:s') }}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="3">Description</th>
+                    <th>Category:</th>
+                </tr>
+                <tr>
+                    <td style="word-break:break-all;" colspan="3">
+                        {{ entity.description }}
+                    </td>
+                    <td>
+                        {% for category in entity.categories %}
+                            {{ category.name }}
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="4">Photos</th>
+                </tr>
+                <tr>
+                    <td colspan="4"><img src="{{ asset('uploads/photos/' ~ entity.photo) }}"></td>
+                </tr>
+                <tr>
+                    <th colspan="4">New Comment</th>
+                </tr>
+                <tr>
+                    <td colspan="4"> {{ form(comment_form) }}</td>
+                </tr>
+
+                <tr>
+                    <th colspan="4">Comments:</th>
+                </tr>
+
+                {% for comment in entity.comments %}
+
+                    <tr>
+                        <td colspan="2">
+                            <strong>
+                                {% if comment.user == null %}
+                                    Anonymous
+                                {% else %}
+                                    {{ comment.user }}
+                                {% endif %}
+                            </strong>
+                            ({{ comment.date|date('Y-m-d H:i:s') }})
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">{{ comment.text }}</td>
+                    </tr>
+                {% endfor %}
+
+            </table>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-12">
+                <form action="{{ path('') }}">
+                    <input type="submit" class="btn btn-primary" value="<- Back to list">
+                </form>
+            </div>
+        </div>
+    </div>
+    <div>
+        <br>
+    </div>
+
+{% endblock %}

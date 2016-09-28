@@ -1,0 +1,58 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+            </div>
+
+            <div class="col-md-6">
+                <div class='page-header'>
+                    <h3 class='text-center'>Dodaj nową pozycję</h3>
+                </div>
+
+                <div class='panel-body'>
+                    <div class='panel'>
+                        {{form_start(edit_form)}}
+                        {{form_label(edit_form.title)}}
+                        {{form_widget(edit_form.title)}}
+                        <br>
+                        {{form_label(edit_form.description)}}
+                        {{form_widget(edit_form.description)}}
+                        {{form_errors(edit_form.description)}}
+                        <br>
+                        <img src="{{ asset('uploads/photos/' ~ entity.photo) }}">
+                        {{form_label(edit_form.photo)}}
+                        {{form_widget(edit_form.photo, {value : 'dobrze'})}}
+
+                        {{form_label(edit_form.status)}}
+                        {{form_widget(edit_form.status)}}
+
+                        <strong>When it started:</strong>
+                        <br>{{entity.start}}
+                        <br>
+                        <strong>Is active till:</strong>
+                        {{form_widget(edit_form.end)}}
+
+                        {{form_label(edit_form.categories)}}
+                        {{form_widget(edit_form.categories)}}
+
+                        {{form_widget(edit_form.submit)}}
+                        {{form_end(edit_form)}}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="container text-center">
+        <form action="{{ path('') }}">
+            <input class='btn btn-primary' type="submit" value="<-Back to list">
+        </form>    
+        <br>
+        {{ form(delete_form) }}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,21 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+
+<div class="container">
+    <h2 class="form-signin-heading text-center">Edit your account information:</h2>
+    {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
+    <div><strong> Login:</strong></div>
+    {{ form_widget(form.username) }}
+    {{ form_errors(form.username) }}
+
+    <div><strong>Your e-mail:</strong></div>
+    {{ form_widget(form.email) }}
+    {{ form_errors(form.email) }}
+
+    <div><strong>Your current password:</strong></div>
+    {{ form_widget(form.current_password) }}
+    <br>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Update</button>
+    {{ form_end(form) }}
+
+</div>

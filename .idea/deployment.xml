@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="AddressBook">
+    <serverData>
+      <paths name="AddressBook">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/noticeboard" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>

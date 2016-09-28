@@ -1,0 +1,25 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+
+<div class="container">
+    <h2 class="form-signin-heading text-center">New User:</h2>
+    {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'form-signin'}}) }}
+    <div><strong> Login:</strong></div>
+    {{ form_widget(form.username) }}
+    {{ form_errors(form.username) }}
+
+    <div><strong>Your e-mail:</strong></div>
+    {{ form_widget(form.email) }}
+    {{ form_errors(form.email) }}
+
+    <div><strong>Your password:</strong></div>
+    {{ form_widget(form.plainPassword.first) }}
+
+    <div><strong>Confirm password:</strong></div>
+    {{ form_widget(form.plainPassword.second) }}
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up!</button>
+    {{ form_end(form) }}
+
+</div>
+

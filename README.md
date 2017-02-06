@@ -1,5 +1,3 @@
-notice_board
-============
+Notice Board
 
-A Symfony project created on September 7, 2016, 4:11 pm.
-# Notice Board in Symfony (2.7)
+A Symfony (2.7) project - where you can find and add notice (sell, buy, etc.) 
